@@ -6,6 +6,7 @@ const Header = () => {
     const manuItems = <>
         <li className='font-semibold'><Link to='/'>Home</Link></li>
         <li className='font-semibold'><Link to='/lognin'>LognIn</Link></li>
+        <li className='font-semibold'><Link to='/signup'>SignUP</Link></li>
     </>
     return (
         <div className="navbar bg-base-100">
