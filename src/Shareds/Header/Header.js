@@ -1,12 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.svg'
+import logo from '../../assets/logo.svg';
+import { useContext } from 'react';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Header = () => {
+    const {user,LogOut} = useContext(AuthContext);
+    const handelLogOut = ()=>{
+        LogOut()
+        .then(()=>{})
+        .catch(error=>console.error(error))
+    }
     const manuItems = <>
         <li className='font-semibold'><Link to='/'>Home</Link></li>
-        <li className='font-semibold'><Link to='/lognin'>LognIn</Link></li>
-        <li className='font-semibold'><Link to='/signup'>SignUP</Link></li>
     </>
     return (
         <div className="navbar bg-base-100">
@@ -29,6 +35,30 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+            <>
+            {
+              user?.uid?
+              <> 
+                
+                <div>  
+                    <p>{user.displayName}</p>
+                    <img src={user?.photoURL} style={{height:'40px'}} className="rounded-full mr-4" alt="" /> 
+                </div>
+                <button onClick={handelLogOut} className='btn btn-outline btn-error mr-2'>
+                  Logout
+                </button>
+              </>
+              :
+              <>
+               <button className='btn btn-outline btn-primary mr-2'>
+                  <Link to='/lognin'>Login</Link>
+                </button>
+                <button className='btn btn-outline btn-secondary mr-2'>
+                  <Link to='/signup'>Sign Up</Link>
+                </button>
+              </>
+            }
+          </>
                 <button className="btn btn-outline btn-warning">Get Started</button>
             </div>
         </div>
