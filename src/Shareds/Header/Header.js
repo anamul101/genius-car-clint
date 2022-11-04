@@ -12,7 +12,8 @@ const Header = () => {
         .catch(error=>console.error(error))
     }
     const manuItems = <>
-        <li className='font-semibold'><Link to='/'>Home</Link></li>
+        <li className='font-semibold mr-2'><Link to='/'>Home</Link></li>
+        <li className='font-semibold mr-2'><Link to='/orders'>Orders</Link></li>
     </>
     return (
         <div className="navbar bg-base-100">
