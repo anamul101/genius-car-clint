@@ -13,7 +13,9 @@ const Header = () => {
     }
     const manuItems = <>
         <li className='font-semibold mr-2'><Link to='/'>Home</Link></li>
-        <li className='font-semibold mr-2'><Link to='/orders'>Orders</Link></li>
+        {
+            user?.email && <li className='font-semibold mr-2'><Link to='/orders'>Orders</Link></li>
+        }
     </>
     return (
         <div className="navbar bg-base-100">
@@ -36,13 +38,14 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
+                {user?.uid && <p>{user?.displayName}</p>}
             <>
             {
               user?.uid?
               <> 
                 
                 <div>  
-                    <p>{user.displayName}</p>
+                    
                     <img src={user?.photoURL} style={{height:'40px'}} className="rounded-full mr-4" alt="" /> 
                 </div>
                 <button onClick={handelLogOut} className='btn btn-outline btn-error mr-2'>

@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
 const LognIn = () => {
-    const {authLognIn} = useContext(AuthContext);
+    const {authLognIn,setLoader} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/'
+
     const handelSubmit = (event)=>{
         event.preventDefault();
         const form = event.target;
@@ -15,11 +19,30 @@ const LognIn = () => {
         authLognIn(email, password)
         .then(result=>{
             const user = result.user;
-            console.log(user);
+            const currentUser={
+                email: user.email
+            }
+            
+            fetch('http://localhost:5000/jwt',{
+                method:'POST',
+                headers:{
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(currentUser)
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data);
+                localStorage.setItem('geniousToken', data.token);
+                navigate(from, {replace:true})
+            })
             form.reset();
+            
         })
         .catch(error=>console.error(error))
-
+        .finally(()=>{
+            setLoader(false)
+        })
     }
     return (
         <div className="hero my-20 w-full">
