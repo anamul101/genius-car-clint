@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
             {
                 path:'/checkout/:id',
                 element:<PrivetRoutes><Checkout></Checkout></PrivetRoutes>,
-                loader: ({params})=>fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({params})=>fetch(`https://genius-car-server-three-tau.vercel.app/services/${params.id}`)
             },
             {
                 path:'/orders',

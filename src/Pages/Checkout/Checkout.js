@@ -23,7 +23,7 @@ const Checkout = () => {
             message
 
         }
-        fetch('http://localhost:5000/orders',{
+        fetch('https://genius-car-server-three-tau.vercel.app/orders',{
             method:'POST',
             headers:{
                 "content-type":"application/json"

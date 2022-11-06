@@ -8,7 +8,7 @@ const Orders = () => {
 
     useEffect(()=>{
 
-        fetch(`http://localhost:5000/orders?email=${user?.email}`,{
+        fetch(`https://genius-car-server-three-tau.vercel.app/orders?email=${user?.email}`,{
             headers:{
                 authorization:`bearer ${localStorage.getItem('geniousToken')}`
             }
@@ -22,12 +22,12 @@ const Orders = () => {
         .then(data=>{
             setOrders(data)
         })
-    },[user?.email])
+    },[user?.email,LogOut])
 
     const handelDelete = (id)=>{
         const proced = window.confirm('are you sure? you want to delete');
         if(proced){
-            fetch(`http://localhost:5000/orders/${id}`,{
+            fetch(`https://genius-car-server-three-tau.vercel.app/orders/${id}`,{
                 method:'DELETE'
             })
             .then(res=>res.json())
@@ -43,7 +43,7 @@ const Orders = () => {
     }
     const handelUbdate = (id)=>{
      
-            fetch(`http://localhost:5000/orders/${id}`,{
+            fetch(`https://genius-car-server-three-tau.vercel.app/orders/${id}`,{
                 method:'PATCH',
                 headers:{
                     "content-type": "application/json"
