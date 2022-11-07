@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Checkout = () => {
     const {_id, price, title} = useLoaderData();
     const {user} = useContext(AuthContext);
+    const navigate = useNavigate()
     const handelOrder =(event)=>{
         event.preventDefault();
         const form = event.target;
@@ -33,8 +35,9 @@ const Checkout = () => {
         .then(res=>res.json())
         .then(data=>{
             if(data.acknowledged){
-                alert('Order Sussesfully');
+                toast.success('Thank You, Order Succesfully')
                 form.reset();
+                navigate('/orders');
             }
             console.log(data);
         })

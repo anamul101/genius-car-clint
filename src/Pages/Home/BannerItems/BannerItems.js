@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const BannerItems = ({slide}) => {
     const {image,prev,next,id} = slide;
@@ -18,8 +19,10 @@ const BannerItems = ({slide}) => {
                     <p className='text-xl text-white'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
                 </div>
                 <div className="absolute flex justify-start transform -translate-y-1/2 left-24 w-2/5 top-2/3">
-                    <button className="btn btn-warning mr-5">Warning</button>
-                    <button className="btn btn-outline btn-warning">Warning</button>
+                    <button className="btn btn-warning mr-5">Get Start</button>
+                    <Link to='/orders'>
+                        <button className="btn btn-outline btn-warning">Orders</button>
+                    </Link>
                 </div>
                 <div className="absolute flex justify-end transform -translate-y-1/2 left-5 right-5 bottom-0">
                 <a href={`#slide${prev}`} className="btn btn-circle mr-5">❮</a> 

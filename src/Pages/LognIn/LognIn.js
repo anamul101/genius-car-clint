@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import toast from 'react-hot-toast';
+import SocialLognIn from '../SocialLognIn/SocialLognIn';
 
 const LognIn = () => {
     const {authLognIn,setLoader} = useContext(AuthContext);
@@ -32,14 +34,16 @@ const LognIn = () => {
             })
             .then(res=>res.json())
             .then(data=>{
-                console.log(data);
                 localStorage.setItem('geniousToken', data.token);
-                navigate(from, {replace:true})
+                navigate(from, {replace:true});
+                toast.success('LogIn successful')
             })
             form.reset();
             
         })
-        .catch(error=>console.error(error))
+        .catch(error=>{
+            toast.error(error.message)
+        })
         .finally(()=>{
             setLoader(false)
         })
@@ -73,6 +77,9 @@ const LognIn = () => {
                         </div>
                     </form>
                     <p className='text-center'>New Genious Car <Link className='font-bold text-orange-600 hover:underline' to='/signup'>Sign Up</Link></p>
+                    <div className='m-auto mt-5 text-2xl font-bold'>
+                        <SocialLognIn></SocialLognIn>
+                    </div>
                 </div>
             </div>
         </div>

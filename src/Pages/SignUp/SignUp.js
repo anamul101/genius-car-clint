@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg';
 import { useContext } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import toast from 'react-hot-toast';
+import SocialLognIn from '../SocialLognIn/SocialLognIn';
 
 const SignUp = () => {
     const {createUser} = useContext(AuthContext);
+    const navigate = useNavigate()
     const handelSubmit = (event)=>{
         event.preventDefault();
         const form = event.target;
@@ -18,8 +21,12 @@ const SignUp = () => {
             const user = result.user;
             console.log(user);
             form.reset();
+            navigate('/lognin');
+            toast.success('SinUp seccessfully . please lognIn')
         })
-        .catch(error=>console.error(error))
+        .catch(error=>{
+            toast.error(error.message)
+        })
 
     }
     return (
@@ -54,7 +61,11 @@ const SignUp = () => {
                         </div>
                     </form>
                     <p className='text-center'>Already have an account? <Link className='font-bold text-orange-600 hover:underline' to='/lognin'>SignIn</Link></p>
+                    <div className='m-auto mt-5 text-2xl font-bold'>
+                        <SocialLognIn></SocialLognIn>
+                    </div>
                 </div>
+                
             </div>
         </div>
     );

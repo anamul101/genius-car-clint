@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import OrderRow from './OrderRow';
 
@@ -32,9 +33,9 @@ const Orders = () => {
             })
             .then(res=>res.json())
             .then(data =>{
-                console.log(data);
+               
                 if(data.deletedCount > 0){
-                    alert('delet success');
+                    toast.success('Delete Successful');
                     const remainging = orders.filter(ord => ord._id !== id);
                     setOrders(remainging);
                 }
@@ -59,13 +60,14 @@ const Orders = () => {
                     aproved.status = 'Approved';
                     const newUbdate = [aproved, ...remmaing];
                     setOrders(newUbdate);
+                    toast.success('Your Product Update')
                 }
             })
         
     }
     return (
-        <div>
-            <h1 className="text-5xl">Your Orders: {orders.length}</h1>
+        <div className='my-20'>
+            <h1 className="text-5xl mb-8 text-center text-orange-800">Your Orders: {orders.length}</h1>
             <div className="overflow-x-auto w-full">
             <table className="table w-full">
                 <thead>
@@ -75,10 +77,10 @@ const Orders = () => {
                         <input type="checkbox" className="checkbox" />
                     </label>
                     </th>
-                    <th>Name</th>
+                    <th>Details</th>
                     <th>Order Items</th>
-                    <th>Favorite Color</th>
-                    <th>message</th>
+                    <th>Mail</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>

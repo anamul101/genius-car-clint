@@ -56,7 +56,6 @@ const Banner = () => {
                         
                 </BannerItems>)
             }
-            {/* <BannerItems image={img1}></BannerItems> */}
             
         </div>
 

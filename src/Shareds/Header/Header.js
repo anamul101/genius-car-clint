@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import { useContext } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Header = () => {
     const {user,LogOut} = useContext(AuthContext);
     const handelLogOut = ()=>{
         LogOut()
-        .then(()=>{})
-        .catch(error=>console.error(error))
+        .then(()=>{
+            toast.success('Logout success')
+        })
+        .catch(error=>{
+            toast.error(error.message);
+        })
     }
     const manuItems = <>
         <li className='font-semibold mr-2'><Link to='/'>Home</Link></li>
@@ -38,13 +43,12 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                {user?.uid && <p>{user?.displayName}</p>}
             <>
             {
               user?.uid?
               <> 
                 
-                <div>  
+                <div className="tooltip tooltip-bottom cursor-pointer" data-tip={user?.displayName}>  
                     
                     <img src={user?.photoURL} style={{height:'40px'}} className="rounded-full mr-4" alt="" /> 
                 </div>
@@ -63,7 +67,7 @@ const Header = () => {
               </>
             }
           </>
-                <button className="btn btn-outline btn-warning">Get Started</button>
+                <button className="btn btn-outline btn-warning">Appointment</button>
             </div>
         </div>
     );
